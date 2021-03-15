@@ -18,19 +18,14 @@ module.exports = function toReadable (number) {
   //numbers from 1 to 19
   if (number < 20) {
     result = units[number]
-    return result;
+    return result.trim();
   }
   
   //numbers from 20 to 99
-  if (number.length === 2 && number.charAt(1) == 0) {
-    result = dozens[number.charAt(0)];
-    result += units[number.charAt(1)];
-    return result;
-    
-  } else if (number.length === 2) {
+if (number.length === 2) {
     result = dozens[number.charAt(0)] + ' ';
     result += units[number.charAt(1)];
-    return result;
+    return result.trim();
   }
 
   //numbers from 100 to 999
@@ -38,30 +33,20 @@ module.exports = function toReadable (number) {
     if (number.length === 3 && number.charAt(1) == 1) {     
         result = units[number.charAt(0)] + ' ' + hundred + ' ';
        result += units[number.slice(1)];
-        return result;
+        return result.trim();
 
-    } else if (number.length === 3 && number.charAt(2) == 0 && number.charAt(1) == 0) {
-      result = units[number.charAt(0)] + ' ' + hundred;
-        result += dozens[number.charAt(1)];
-        result += units[number.charAt(2)];
-      return result;
-
-    } else if (number.length === 3 && number.charAt(2) == 0) {
-        result = units[number.charAt(0)] + ' ' + hundred + ' ';      
-        result += dozens[number.charAt(1)] + '';
-        result += units[number.charAt(2)];
-      return result;
-
-    } else if (number.length === 3 && number.charAt(1) == 0) {
+    } 
+    else if (number.length === 3 && number.charAt(1) == 0) {
       result = units[number.charAt(0)] + ' ' + hundred + ' ';
         result += dozens[number.charAt(1)];
         result += units[number.charAt(2)];
-      return result;
+      return result.trim();
 
-    } else {
+    } 
+    else {
       result = units[number.charAt(0)] + ' ' + hundred + ' ';
       result += dozens[number.charAt(1)] + ' ';
       result += units[number.charAt(2)];
-      return result;
+      return result.trim();
     }
 }
