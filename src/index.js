@@ -12,8 +12,9 @@ module.exports = function toReadable (number) {
   
   let result = '';
   number = String(number);
-  console.log(number);
-
+  if (number == 0) {
+    return 'zero';
+  }
   //numbers from 1 to 19
   if (number < 20) {
     result = units[number]
@@ -21,26 +22,46 @@ module.exports = function toReadable (number) {
   }
   
   //numbers from 20 to 99
-  if (number.length === 2) {
+  if (number.length === 2 && number.charAt(1) == 0) {
+    result = dozens[number.charAt(0)];
+    result += units[number.charAt(1)];
+    return result;
+    
+  } else if (number.length === 2) {
     result = dozens[number.charAt(0)] + ' ';
     result += units[number.charAt(1)];
     return result;
   }
 
-  //numbers from 100 to 999  
-  if (number.length === 3 && number.charAt(1) == 1) {     
+  //numbers from 100 to 999
+  
+    if (number.length === 3 && number.charAt(1) == 1) {     
         result = units[number.charAt(0)] + ' ' + hundred + ' ';
        result += units[number.slice(1)];
         return result;
-  } else if (number.length === 3 && number.charAt(2) == 0) {
-        result = units[number.charAt(0)] + ' ' + hundred + ' ';     
+
+    } else if (number.length === 3 && number.charAt(2) == 0 && number.charAt(1) == 0) {
+      result = units[number.charAt(0)] + ' ' + hundred;
+        result += dozens[number.charAt(1)];
+        result += units[number.charAt(2)];
+      return result;
+
+    } else if (number.length === 3 && number.charAt(2) == 0) {
+        result = units[number.charAt(0)] + ' ' + hundred + ' ';      
         result += dozens[number.charAt(1)] + '';
         result += units[number.charAt(2)];
-        return result;
-    } else {
-        result = units[number.charAt(0)] + ' ' + hundred + ' ';
-        result += dozens[number.charAt(1)] + ' ';
+      return result;
+
+    } else if (number.length === 3 && number.charAt(1) == 0) {
+      result = units[number.charAt(0)] + ' ' + hundred + ' ';
+        result += dozens[number.charAt(1)];
         result += units[number.charAt(2)];
+      return result;
+
+    } else {
+      result = units[number.charAt(0)] + ' ' + hundred + ' ';
+      result += dozens[number.charAt(1)] + ' ';
+      result += units[number.charAt(2)];
       return result;
     }
 }
